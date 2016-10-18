@@ -12,6 +12,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import laurentesp.list_exercice.flickr.photo.PhotoSimple;
+
 /**
  * Created by SOEOSSA on 17/10/2016.
  */

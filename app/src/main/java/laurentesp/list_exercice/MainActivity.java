@@ -12,11 +12,16 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnFlickrResponseListener, AdapterView.OnItemClickListener{
+import laurentesp.list_exercice.flickr.business.OnFlickrResponseListener;
+import laurentesp.list_exercice.flickr.photo.PhotoSimple;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnFlickrResponseListener {
+    public final static String EXTRA_MESSAGE = "laurentesp.list_exercice.MESSAGE";
     private List<String> listStudent;
     private List<String> listTrainer;
     private List<String> listToDisplay;
@@ -33,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         listView = (ListView) findViewById(R.id.list);
         listPhoto = new ArrayList<PhotoSimple>();
 
@@ -40,6 +46,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         myAdapter.setMyList(listPhoto);
 
         listView.setAdapter(myAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                // TODO : create new activity
+                Intent intent = new Intent(MainActivity.this, ActivityPhotoDetail.class);
+                String[] message = new String[2];
+                message[0] = listPhoto.get(position).getTitle();
+                message[1] = listPhoto.get(position).getUrl();
+                intent.putExtra(EXTRA_MESSAGE,message);
+                startActivity(intent);
+                //Toast.makeText(MainActivity.this, listPhoto.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
         Button buttonListChange = (Button) findViewById(R.id.button_0);
         buttonListChange.setOnClickListener(this);
@@ -96,8 +114,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         myAdapter.setMyList(listPhoto);
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-    }
 }

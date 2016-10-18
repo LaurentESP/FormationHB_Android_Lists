@@ -11,6 +11,11 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import laurentesp.list_exercice.flickr.business.FlickrInterface;
+import laurentesp.list_exercice.flickr.business.FlickrPhotoResponse;
+import laurentesp.list_exercice.flickr.business.OnFlickrResponseListener;
+import laurentesp.list_exercice.flickr.photo.Photo;
+import laurentesp.list_exercice.flickr.photo.PhotoSimple;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

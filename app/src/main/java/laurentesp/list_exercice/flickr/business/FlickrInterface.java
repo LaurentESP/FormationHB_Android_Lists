@@ -1,6 +1,4 @@
-package laurentesp.list_exercice;
-
-import android.content.res.Resources;
+package laurentesp.list_exercice.flickr.business;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
