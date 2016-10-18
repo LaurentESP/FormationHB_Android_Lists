@@ -1,4 +1,4 @@
-package laurentesp.list_exercice.flickr.business;
+package laurentesp.list_exercice.flickr.photo;
 
 import laurentesp.list_exercice.flickr.photo.Photos;
 

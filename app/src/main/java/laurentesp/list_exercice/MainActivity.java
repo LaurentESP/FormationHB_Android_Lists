@@ -8,11 +8,11 @@ import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         listView = (ListView) findViewById(R.id.list);
-        listPhoto = new ArrayList<PhotoSimple>();
+        listPhoto = new ArrayList<>();
 
         myAdapter = new ListAdapter(this);
         myAdapter.setMyList(listPhoto);
@@ -48,14 +48,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         listView.setAdapter(myAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                // TODO : create new activity
+
+                String[] message = {listPhoto.get(position).getTitle(), listPhoto.get(position).getUrl()};
                 Intent intent = new Intent(MainActivity.this, ActivityPhotoDetail.class);
-                String[] message = new String[2];
-                message[0] = listPhoto.get(position).getTitle();
-                message[1] = listPhoto.get(position).getUrl();
                 intent.putExtra(EXTRA_MESSAGE,message);
+                // TODO : create new activity if no fragment B else display in fragment B
                 startActivity(intent);
-                //Toast.makeText(MainActivity.this, listPhoto.get(position).getTitle(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -101,10 +99,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.button_0:
+                closeSoftKeyboard();
                 toastService.getFlickrPhotos(editText.getText().toString());
                 break;
             default:
-                //myAdapter.setMyList(listPhoto);
         }
     }
 
@@ -114,4 +112,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         myAdapter.setMyList(listPhoto);
     }
 
+    public void closeSoftKeyboard() {
+        // Check if no view has focus:
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
 }
