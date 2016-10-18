@@ -5,7 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -15,13 +18,13 @@ import java.util.List;
 
 public class ListAdapter extends BaseAdapter {
     private Context context;
-    private List<String> myList;
+    private List<PhotoSimple> myList;
 
     public ListAdapter(Context context) {
         this.context = context;
     }
 
-    public void setMyList(List<String> myList) {
+    public void setMyList(List<PhotoSimple> myList) {
         this.myList = myList;
         notifyDataSetChanged();
     }
@@ -48,7 +51,12 @@ public class ListAdapter extends BaseAdapter {
         }
 
         TextView myTextView = (TextView) convertView.findViewById(R.id.text_row);
-        myTextView.setText(myList.get(position));
+        myTextView.setText(myList.get(position).getTitle());
+
+        ImageView myImageView = (ImageView) convertView.findViewById(R.id.img);
+        Picasso.with(context) .load(myList.get(position).getUrl())
+                .resize(200, 200) .centerCrop()
+                .into(myImageView);
 
         return convertView;
     }

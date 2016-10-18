@@ -11,10 +11,12 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="laurentesp.list_exercice.MainActivity">
 
-    <TextView
+    <EditText
+        android:id="@+id/edit_query"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Excercices on Lists" />
+        android:hint="Type your query"
+        />
     <Button
         android:id="@+id/button_0"
         android:layout_width="wrap_content"
