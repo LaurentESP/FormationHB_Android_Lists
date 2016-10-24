@@ -78,18 +78,20 @@ public class WebCallService extends Service {
                                                  if (response.isSuccessful()) {
                                                      Toast.makeText(context, "Success", Toast.LENGTH_LONG).show();
 
-                                                     ArrayList<Photo> listPhotos = response.body().getPhotos().getPhoto();
                                                      ArrayList<PhotoSimple> listPhotoSimple = new ArrayList<PhotoSimple>();
 
-                                                     for (int i=0;i<listPhotos.size();i++){
-                                                         Photo photoI = listPhotos.get(i);
-                                                         String title = photoI.getTitle();
-                                                         String farm = photoI.getFarm();
-                                                         String server = photoI.getServer();
-                                                         String id = photoI.getId();
-                                                         String secret = photoI.getSecret();
-                                                         PhotoSimple newPhotoSimple = new PhotoSimple(title,farm,server,id,secret);
-                                                         listPhotoSimple.add(newPhotoSimple);
+                                                     if (response.body().getPhotos() != null) {
+                                                         ArrayList<Photo> listPhotos = response.body().getPhotos().getPhoto();
+                                                         for (int i = 0; i < listPhotos.size(); i++) {
+                                                             Photo photoI = listPhotos.get(i);
+                                                             String title = photoI.getTitle();
+                                                             String farm = photoI.getFarm();
+                                                             String server = photoI.getServer();
+                                                             String id = photoI.getId();
+                                                             String secret = photoI.getSecret();
+                                                             PhotoSimple newPhotoSimple = new PhotoSimple(title, farm, server, id, secret);
+                                                             listPhotoSimple.add(newPhotoSimple);
+                                                         }
                                                      }
                                                      interfaceForResponseListener.onFlickrResponse(listPhotoSimple);
                                                  } else {

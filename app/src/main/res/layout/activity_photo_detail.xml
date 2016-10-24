@@ -10,12 +10,10 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="laurentesp.list_exercice.ActivityPhotoDetail"
     android:orientation="vertical">
-    <TextView
-        android:id="@+id/txt_vw_photo_detail_title"
+    <fragment
+        android:id="@+id/frag_photo_detail"
+        android:name="laurentesp.list_exercice.PhotoDetailsFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <ImageView
-        android:id="@+id/img_vw_detail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent">
+    </fragment>
 </LinearLayout>

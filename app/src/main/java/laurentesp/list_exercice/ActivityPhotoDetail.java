@@ -15,21 +15,35 @@ import static android.R.id.message;
 public class ActivityPhotoDetail extends AppCompatActivity{
     private TextView txtVwPhotoTitle;
     private ImageView imgVw;
+    private PhotoDetailsInterface photoDetailsInterface;
+
+    private String photoUrl;
+    private String photoTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_detail);
 
-        txtVwPhotoTitle = (TextView) findViewById(R.id.txt_vw_photo_detail_title);
-        imgVw = (ImageView) findViewById(R.id.img_vw_detail);
 
-        Intent intent = getIntent();
-        String[] message = intent.getStringArrayExtra(MainActivity.EXTRA_MESSAGE);
-        txtVwPhotoTitle.setText(message[0]);
-        Picasso.with(getBaseContext()) .load(message[1])
-                .resize(800, 800) .centerCrop()
-                .into(imgVw);
+
+
+        /*
+        bundle.putString("imgUrl", photoUrl);
+        bundle.putString("imgTtl", photoTitle);
+        PhotoDetailsFragment fragobj = new PhotoDetailsFragment();
+        fragobj.setArguments(bundle);
+
+        // Add the fragment to the 'fragment_container' FrameLayout
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.frag_layout, fragobj).commit(); */
     }
 
+    public String getImageUrl(){
+        return photoUrl;
+    }
+
+    public String getImageTitle(){
+        return photoTitle;
+    }
 }

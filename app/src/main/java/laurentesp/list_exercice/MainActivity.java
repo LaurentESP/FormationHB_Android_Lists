@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -20,104 +21,57 @@ import java.util.List;
 import laurentesp.list_exercice.flickr.business.OnFlickrResponseListener;
 import laurentesp.list_exercice.flickr.photo.PhotoSimple;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnFlickrResponseListener {
+public class MainActivity extends AppCompatActivity implements ListPhotosFragment.OnHeadlineSelectedListener{
+    static String mCurrentUrl = "";
+    static String mCurrentTitle = "";
     public final static String EXTRA_MESSAGE = "laurentesp.list_exercice.MESSAGE";
-    private List<String> listStudent;
-    private List<String> listTrainer;
-    private List<String> listToDisplay;
-    private ListAdapter myAdapter;
-
-    private WebCallService toastService;
-    private Boolean bound;
-    private ArrayList<PhotoSimple> listPhoto;
-
-    private EditText editText;
-    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        listView = (ListView) findViewById(R.id.list);
-        listPhoto = new ArrayList<>();
-
-        myAdapter = new ListAdapter(this);
-        myAdapter.setMyList(listPhoto);
-
-        listView.setAdapter(myAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-
-                String[] message = {listPhoto.get(position).getTitle(), listPhoto.get(position).getUrl()};
-                Intent intent = new Intent(MainActivity.this, ActivityPhotoDetail.class);
-                intent.putExtra(EXTRA_MESSAGE,message);
-                // TODO : create new activity if no fragment B else display in fragment B
-                startActivity(intent);
-            }
-        });
-
-        Button buttonListChange = (Button) findViewById(R.id.button_0);
-        buttonListChange.setOnClickListener(this);
-
-        editText = (EditText) findViewById(R.id.edit_query);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Intent intent = new Intent(this, WebCallService.class);
-        bindService(intent,connection, Context.BIND_AUTO_CREATE);
-    }
+    public void onPhotoSelected(String photoTitle, String photoUrl) {
+        // The user selected a photo from the photo list
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (bound){
-            unbindService(connection);
-            bound = false;
+        // Capture the photo detail fragment from the activity layout
+        PhotoDetailsFragment photoDetailsFragment = (PhotoDetailsFragment)
+                getSupportFragmentManager().findFragmentById(R.id.frag_detail);
+
+        if (photoDetailsFragment != null) {
+            // If article frag is available, we're in two-pane layout...
+            // Call a method in the ArticleFragment to update its content
+            Intent intent = new Intent(MainActivity.this, PhotoDetailsFragment.class);
+            String[] message = {photoTitle,photoUrl};
+            intent.putExtra(EXTRA_MESSAGE,message);
+
+            photoDetailsFragment.updatePhotoView(photoTitle,photoUrl);
+
+        } else {
+            // If the frag is not available, we're in the one-pane layout and must swap frags...
+            // Create fragment and give it an argument for the selected article
+
+            Intent intent = new Intent(MainActivity.this, ActivityPhotoDetail.class);
+            String[] message = {photoTitle,photoUrl};
+            intent.putExtra(EXTRA_MESSAGE,message);
+            startActivity(intent);
+            /*
+            PhotoDetailsFragment newFragment = new PhotoDetailsFragment();
+            Bundle args = new Bundle();
+            args.putString(PhotoDetailsFragment.ARG_TITLE, photoTitle);
+            args.putString(PhotoDetailsFragment.ARG_URL, photoUrl);
+            newFragment.setArguments(args);
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+            // Replace whatever is in the fragment_container view with this fragment,
+            // and add the transaction to the back stack so the user can navigate back
+            transaction.replace(R.id.frag_container, newFragment);
+            transaction.addToBackStack(null);
+
+            // Commit the transaction
+            transaction.commit(); */
         }
     }
 
-    private ServiceConnection connection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            WebCallService.ServiceBinder binder = (WebCallService.ServiceBinder) service;
-            toastService = binder.getService();
-            toastService.setInterfaceForResponseListener(MainActivity.this);
-            bound = true;
-            toastService.setContext(getBaseContext());
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            bound = false;
-        }
-    };
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.button_0:
-                closeSoftKeyboard();
-                toastService.getFlickrPhotos(editText.getText().toString());
-                break;
-            default:
-        }
-    }
-
-    @Override
-    public void onFlickrResponse(ArrayList<PhotoSimple> listPhotoSimple) {
-        listPhoto = listPhotoSimple;
-        myAdapter.setMyList(listPhoto);
-    }
-
-    public void closeSoftKeyboard() {
-        // Check if no view has focus:
-        View view = this.getCurrentFocus();
-        if (view != null) {
-            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
-    }
 }
