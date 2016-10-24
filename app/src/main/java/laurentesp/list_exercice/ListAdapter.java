@@ -57,9 +57,8 @@ public class ListAdapter extends BaseAdapter {
 
         ImageView myImageView = (ImageView) convertView.findViewById(R.id.img);
         Picasso.with(context) .load(myList.get(position).getUrl())
-                .resize(200, 200) .centerCrop()
+                .resize(200, 200) .centerCrop() .placeholder(R.mipmap.ic_launcher)
                 .into(myImageView);
-
         return convertView;
     }
 }

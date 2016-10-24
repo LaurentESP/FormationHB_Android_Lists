@@ -36,10 +36,10 @@ public class MainActivity extends AppCompatActivity implements ListPhotosFragmen
         // The user selected a photo from the photo list
 
         // Capture the photo detail fragment from the activity layout
-        PhotoDetailsFragment photoDetailsFragment = (PhotoDetailsFragment)
-                getSupportFragmentManager().findFragmentById(R.id.frag_detail);
+        PhotoDetailsFragment photoDetailsFragment = (PhotoDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.frag_detail);
 
-        if (photoDetailsFragment != null) {
+
+        if ((photoDetailsFragment != null) && (photoDetailsFragment.isInLayout())) {
             // If article frag is available, we're in two-pane layout...
             // Call a method in the ArticleFragment to update its content
             Intent intent = new Intent(MainActivity.this, PhotoDetailsFragment.class);
@@ -56,21 +56,6 @@ public class MainActivity extends AppCompatActivity implements ListPhotosFragmen
             String[] message = {photoTitle,photoUrl};
             intent.putExtra(EXTRA_MESSAGE,message);
             startActivity(intent);
-            /*
-            PhotoDetailsFragment newFragment = new PhotoDetailsFragment();
-            Bundle args = new Bundle();
-            args.putString(PhotoDetailsFragment.ARG_TITLE, photoTitle);
-            args.putString(PhotoDetailsFragment.ARG_URL, photoUrl);
-            newFragment.setArguments(args);
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
-            // Replace whatever is in the fragment_container view with this fragment,
-            // and add the transaction to the back stack so the user can navigate back
-            transaction.replace(R.id.frag_container, newFragment);
-            transaction.addToBackStack(null);
-
-            // Commit the transaction
-            transaction.commit(); */
         }
     }
 
