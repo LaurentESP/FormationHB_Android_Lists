@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-public class PhotoDetailsFragment extends Fragment implements PhotoDetailsInterface{
+public class PhotoDetailsFragment extends Fragment implements PhotoDetailsInterface {
     final static String ARG_URL = "url";
     final static String ARG_TITLE = "title";
 
@@ -20,7 +20,6 @@ public class PhotoDetailsFragment extends Fragment implements PhotoDetailsInterf
 
     private TextView txtVwPhotoTitle;
     private ImageView imgVw;
-
 
     private PhotoDetailFragmentAttachInterface photoDetailFragmentAttachInterface;
 
@@ -62,16 +61,20 @@ public class PhotoDetailsFragment extends Fragment implements PhotoDetailsInterf
         if (savedInstanceState != null) {
             photoTitle = savedInstanceState.getString(ARG_TITLE);
             photoUrl = savedInstanceState.getString(ARG_URL);
-            updatePhotoView(photoTitle,photoUrl);
+            updatePhotoView(photoTitle, photoUrl);
         }
 
         return view;
     }
 
-    public void onPhotoClickListener(String url, String title){
+    public void onPhotoClickListener(String url, String title) {
+        //Save the photo in persistence
+
+        //Display the title of the photo
         txtVwPhotoTitle.setText(title);
-        Picasso.with(getContext()) .load(url)
-                .resize(800, 800) .centerCrop()
+        // Display the photo
+        Picasso.with(getContext()).load(url)
+                .resize(800, 800).centerCrop()
                 .into(imgVw);
     }
 
@@ -91,17 +94,17 @@ public class PhotoDetailsFragment extends Fragment implements PhotoDetailsInterf
         Bundle args = getArguments();
         if (args != null) {
             // Set article based on argument passed in
-            updatePhotoView(args.getString(ARG_TITLE),args.getString(ARG_URL));
+            updatePhotoView(args.getString(ARG_TITLE), args.getString(ARG_URL));
 
         } else if (!(photoUrl.isEmpty())) {
             // Set article based on saved instance state defined during onCreateView
-            updatePhotoView(photoTitle,photoUrl);
+            updatePhotoView(photoTitle, photoUrl);
         }
     }
 
     public void updatePhotoView(String photoTitle, String photoUrl) {
-        txtVwPhotoTitle.setText(photoTitle);
 
+        txtVwPhotoTitle.setText(photoTitle);
         if (!(photoUrl.isEmpty())) {
             Picasso.with(getContext()).load(photoUrl)
                     .resize(800, 800).centerCrop()
