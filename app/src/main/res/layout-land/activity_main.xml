@@ -1,22 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:weightSum="2">
-    <fragment
-        android:name="laurentesp.list_exercice.ListPhotosFragment"
-        android:id="@+id/frag_list"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="wrap_content">
-    </fragment>
-    <fragment
-        android:name="laurentesp.list_exercice.PhotoDetailsFragment"
-        android:id="@+id/frag_detail"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="wrap_content">
-    </fragment>
+
+    <include layout="@layout/toggle_button"/>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/frags_list_and_details"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <fragment
+            android:id="@+id/frag_list"
+            android:name="laurentesp.list_exercice.ListPhotosFragment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"></fragment>
+
+        <fragment
+            android:id="@+id/frag_detail"
+            android:name="laurentesp.list_exercice.PhotoDetailsFragment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"></fragment>
+    </LinearLayout>
 </LinearLayout>

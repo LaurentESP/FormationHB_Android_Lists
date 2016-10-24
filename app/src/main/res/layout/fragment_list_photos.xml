@@ -36,6 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|right"
                 android:src="@drawable/ic_search_black_18dp"
+                android:scaleType="center"
                 app:layout_anchor="@id/edit_query"
                 app:layout_anchorGravity="center|right|end"
                 />
