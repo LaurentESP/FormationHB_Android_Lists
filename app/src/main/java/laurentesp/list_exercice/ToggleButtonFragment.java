@@ -70,6 +70,10 @@ public class ToggleButtonFragment extends Fragment implements ToggleButton.OnVal
                 intent = new Intent(getContext(),PhotoListPerstActivity.class);
                 intent.putExtra(EXTRA_MESSAGE,"FAVORITE");
                 break;
+            case 3:
+                intent = new Intent(getContext(),GMapsActivity.class);
+                intent.putExtra(EXTRA_MESSAGE,"FAVORITE");
+                break;
             default:
                 intent = new Intent(getContext(),MainActivity.class);
         }

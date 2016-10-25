@@ -2,6 +2,7 @@ package laurentesp.list_exercice;
 
 import android.content.Context;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import laurentesp.list_exercice.dataBase.PhotoPersistenceManager;
@@ -24,7 +25,14 @@ public class PhotoPersistenceJob {
     }
 
     public void savePhoto(String url, String title, PhotoType photoType) {
-        photoTable = new PhotoSimple();
+        List<PhotoSimple> photoInDataBase = new ArrayList<>();
+        photoInDataBase = photoPersistenceManager.getPhotoByUrl(url);
+        if (photoInDataBase.isEmpty()){
+            photoTable = new PhotoSimple();
+        } else {
+            photoTable = photoInDataBase.get(0);
+        }
+
         photoTable.setUrl(url);
         photoTable.setTitle(title);
         photoTable.setPhotoType(photoType);
