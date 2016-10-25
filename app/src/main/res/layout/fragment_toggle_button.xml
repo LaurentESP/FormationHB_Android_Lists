@@ -1,0 +1,11 @@
+<org.honorato.multistatetogglebutton.MultiStateToggleButton
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:mstb="http://schemas.android.com/apk/res-auto"
+
+    android:id="@+id/mstb_multi_id"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dip"
+    mstb:values="@array/actions_array"
+    mstb:mstbPrimaryColor="@color/primary"
+    mstb:mstbSecondaryColor="@color/primary_light"/>

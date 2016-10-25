@@ -1,6 +1,4 @@
-package laurentesp.list_exercice.flickr.photo;
-
-import laurentesp.list_exercice.flickr.photo.Photos;
+package laurentesp.list_exercice.flickr.model;
 
 /**
  * Created by SOEOSSA on 17/10/2016.

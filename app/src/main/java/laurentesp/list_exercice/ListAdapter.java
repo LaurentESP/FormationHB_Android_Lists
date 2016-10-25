@@ -10,9 +10,10 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import laurentesp.list_exercice.flickr.photo.PhotoSimple;
+import laurentesp.list_exercice.flickr.model.PhotoSimple;
 
 /**
  * Created by SOEOSSA on 17/10/2016.
@@ -20,7 +21,7 @@ import laurentesp.list_exercice.flickr.photo.PhotoSimple;
 
 public class ListAdapter extends BaseAdapter {
     private Context context;
-    private List<PhotoSimple> myList;
+    private List<PhotoSimple> myList = new ArrayList<>();
 
     public ListAdapter(Context context) {
         this.context = context;

@@ -1,4 +1,4 @@
-package laurentesp.list_exercice.flickr.photo;
+package laurentesp.list_exercice.flickr.model;
 
 import java.util.ArrayList;
 

@@ -4,27 +4,21 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import laurentesp.list_exercice.flickr.business.OnFlickrResponseListener;
-import laurentesp.list_exercice.flickr.photo.PhotoSimple;
+import laurentesp.list_exercice.flickr.model.PhotoSimple;
 
 
 public class ListPhotosFragment extends ListFragment implements View.OnClickListener, OnFlickrResponseListener {
@@ -44,7 +38,9 @@ public class ListPhotosFragment extends ListFragment implements View.OnClickList
 
     // The container Activity must implement this interface so the frag can deliver messages
     public interface OnHeadlineSelectedListener {
-        /** Called by HeadlinesFragment when a list item is selected */
+        /**
+         * Called by HeadlinesFragment when a list item is selected
+         */
         public void onPhotoSelected(String photoTitle, String photoUrl);
     }
 
@@ -75,13 +71,12 @@ public class ListPhotosFragment extends ListFragment implements View.OnClickList
         myAdapter.setMyList(listPhoto);
         setListAdapter(myAdapter);
 
-
         FloatingActionButton buttonListChange = (FloatingActionButton) view.findViewById(R.id.button_0);
         buttonListChange.setOnClickListener(this);
 
         editText = (EditText) view.findViewById(R.id.edit_query);
 
-        if (listPhoto !=null){
+        if (listPhoto != null) {
             myAdapter.setMyList(listPhoto);
         }
 
@@ -101,7 +96,7 @@ public class ListPhotosFragment extends ListFragment implements View.OnClickList
     public void onStart() {
         super.onStart();
         Intent intent = new Intent(getContext(), WebCallService.class);
-        getActivity().bindService(intent,connection, Context.BIND_AUTO_CREATE);
+        getActivity().bindService(intent, connection, Context.BIND_AUTO_CREATE);
         // When in two-pane layout, set the listview to highlight the selected list item
         // (We do this during onStart because at the point the listview is available.)
         if (getFragmentManager().findFragmentById(R.id.frag_detail) != null) {
@@ -112,7 +107,7 @@ public class ListPhotosFragment extends ListFragment implements View.OnClickList
     @Override
     public void onStop() {
         super.onStop();
-        if (bound){
+        if (bound) {
             getActivity().unbindService(connection);
             bound = false;
         }
@@ -146,7 +141,7 @@ public class ListPhotosFragment extends ListFragment implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.button_0:
                 closeSoftKeyboard();
                 toastService.getFlickrPhotos(editText.getText().toString());

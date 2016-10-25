@@ -1,16 +1,9 @@
 package laurentesp.list_exercice;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.squareup.picasso.Picasso;
-
-import laurentesp.list_exercice.flickr.photo.PhotoSimple;
-
-import static android.R.id.message;
 
 public class ActivityPhotoDetail extends AppCompatActivity{
     private TextView txtVwPhotoTitle;

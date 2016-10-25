@@ -7,7 +7,11 @@
     android:orientation="vertical"
     android:weightSum="2">
 
-    <include layout="@layout/toggle_button"/>
+    <fragment
+        android:id="@+id/frag_tog_but_land"
+        android:name="laurentesp.list_exercice.ToggleButtonFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/frags_list_and_details"

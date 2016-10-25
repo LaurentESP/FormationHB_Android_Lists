@@ -7,6 +7,7 @@ import java.util.List;
 import laurentesp.list_exercice.dataBase.PhotoPersistenceManager;
 import laurentesp.list_exercice.dataBase.PhotoTable;
 import laurentesp.list_exercice.dataBase.PhotoType;
+import laurentesp.list_exercice.flickr.model.PhotoSimple;
 
 /**
  * Created by SOEOSSA on 24/10/2016.
@@ -14,21 +15,23 @@ import laurentesp.list_exercice.dataBase.PhotoType;
 
 public class PhotoPersistenceJob {
     private PhotoPersistenceManager photoPersistenceManager;
-    private PhotoTable photoTable;
+    private PhotoSimple photoTable;
 
     public PhotoPersistenceJob(Context context) {
         photoPersistenceManager = new PhotoPersistenceManager();
         photoPersistenceManager.PhotoPersistenceManager(context);
-        photoTable = new PhotoTable();
+        photoTable = new PhotoSimple();
     }
 
-    public void savePhoto(String url, String title) {
-        photoTable.setPhotoUrl(url);
-        photoTable.setPhotoName(title);
+    public void savePhoto(String url, String title, PhotoType photoType) {
+        photoTable = new PhotoSimple();
+        photoTable.setUrl(url);
+        photoTable.setTitle(title);
+        photoTable.setPhotoType(photoType);
         photoPersistenceManager.save(photoTable);
     }
 
-    public List<PhotoTable> getPhoto(String histOrFav) {
+    public List<PhotoSimple> getPhoto(String histOrFav) {
         if (histOrFav.equals(PhotoType.FAVORITE)) {
             return photoPersistenceManager.getPhotoFromFavorites();
         } else {

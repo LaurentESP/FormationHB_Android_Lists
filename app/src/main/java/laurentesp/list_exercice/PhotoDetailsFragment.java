@@ -52,7 +52,7 @@ public class PhotoDetailsFragment extends Fragment implements PhotoDetailsInterf
 
         Intent intent = getActivity().getIntent();
 
-        String[] message = intent.getStringArrayExtra(MainActivity.EXTRA_MESSAGE);
+        String[] message = intent.getStringArrayExtra(ToggleButtonFragment.EXTRA_MESSAGE);
         if (message != null) {
             photoTitle = message[0];
             photoUrl = message[1];

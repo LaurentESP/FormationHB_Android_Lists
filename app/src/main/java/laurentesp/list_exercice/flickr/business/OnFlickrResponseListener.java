@@ -2,7 +2,7 @@ package laurentesp.list_exercice.flickr.business;
 
 import java.util.ArrayList;
 
-import laurentesp.list_exercice.flickr.photo.PhotoSimple;
+import laurentesp.list_exercice.flickr.model.PhotoSimple;
 
 /**
  * Created by SOEOSSA on 17/10/2016.

@@ -5,14 +5,18 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.raizlabs.android.dbflow.config.FlowLog;
+
 import org.honorato.multistatetogglebutton.MultiStateToggleButton;
 import org.honorato.multistatetogglebutton.ToggleButton;
+
+import laurentesp.list_exercice.dataBase.PhotoType;
 
 public class MainActivity extends AppCompatActivity implements ListPhotosFragment.OnHeadlineSelectedListener {
     static String mCurrentUrl = "";
     static String mCurrentTitle = "";
     public final static String EXTRA_MESSAGE = "laurentesp.list_exercice.MESSAGE";
-    private final String TAG = "Toggle_Button";
+
     private PhotoPersistenceJob photoPersistenceJob;
 
     @Override
@@ -20,22 +24,16 @@ public class MainActivity extends AppCompatActivity implements ListPhotosFragmen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         photoPersistenceJob = new PhotoPersistenceJob(getBaseContext());
-        MultiStateToggleButton buttonToggle = (MultiStateToggleButton) this.findViewById(R.id.mstb_multi_id);
-        buttonToggle.setElements(R.array.actions_array, 0);
-        buttonToggle.setOnValueChangedListener(new ToggleButton.OnValueChangedListener() {
-            @Override
-            public void onValueChanged(int position) {
-                Log.d(TAG, "Position: " + position);
-            }
-        });
+        FlowLog.setMinimumLoggingLevel(FlowLog.Level.V);
     }
 
     // On click callback on Photo List
+    @Override
     public void onPhotoSelected(String photoTitle, String photoUrl) {
         // The user selected a photo from the photo list
 
         // Save in persistence the photo details
-        photoPersistenceJob.savePhoto(photoTitle,photoUrl);
+        photoPersistenceJob.savePhoto(photoUrl, photoTitle, PhotoType.HISTORIC);
 
         // Capture the photo detail fragment from the activity layout
         PhotoDetailsFragment photoDetailsFragment = (PhotoDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.frag_detail);
@@ -59,5 +57,7 @@ public class MainActivity extends AppCompatActivity implements ListPhotosFragmen
             startActivity(intent);
         }
     }
+
+
 
 }
