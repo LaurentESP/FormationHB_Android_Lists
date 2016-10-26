@@ -99,6 +99,14 @@ public class PhotoSimple extends BaseModel {
     public PhotoSimple() {
     }
 
+    // Constructor for the duplication of a PhotoSimple object
+    public PhotoSimple(PhotoSimple photoSimple) {
+        this.url=photoSimple.getUrl();
+        this.title=photoSimple.getTitle();
+        this.photoLat=photoSimple.getPhotoLat();
+        this.photoLong=photoSimple.getPhotoLong();
+        this.photoSearch=photoSimple.getPhotoSearch();
+    }
 
     public String getTitle() {
         return title;

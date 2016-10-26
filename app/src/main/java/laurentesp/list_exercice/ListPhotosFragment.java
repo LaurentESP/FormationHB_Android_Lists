@@ -41,7 +41,7 @@ public class ListPhotosFragment extends ListFragment implements View.OnClickList
         /**
          * Called by HeadlinesFragment when a list item is selected
          */
-        public void onPhotoSelected(String photoTitle, String photoUrl);
+        public void onPhotoSelected(String photoTitle, String photoUrl, PhotoSimple photoSimple);
     }
 
     public ListPhotosFragment() {
@@ -170,7 +170,7 @@ public class ListPhotosFragment extends ListFragment implements View.OnClickList
         // Notify the parent activity of selected item
         String titlePhoto = listPhoto.get(position).getTitle();
         String urlPhoto = listPhoto.get(position).getUrl();
-        mCallback.onPhotoSelected(titlePhoto, urlPhoto);
+        mCallback.onPhotoSelected(titlePhoto, urlPhoto, listPhoto.get(position));
 
         // Set the item as checked to be highlighted when in two-pane layout
         getListView().setItemChecked(position, true);

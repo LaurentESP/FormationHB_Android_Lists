@@ -11,6 +11,7 @@ import org.honorato.multistatetogglebutton.MultiStateToggleButton;
 import org.honorato.multistatetogglebutton.ToggleButton;
 
 import laurentesp.list_exercice.dataBase.PhotoType;
+import laurentesp.list_exercice.flickr.model.PhotoSimple;
 
 public class MainActivity extends AppCompatActivity implements ListPhotosFragment.OnHeadlineSelectedListener {
     static String mCurrentUrl = "";
@@ -29,11 +30,11 @@ public class MainActivity extends AppCompatActivity implements ListPhotosFragmen
 
     // On click callback on Photo List
     @Override
-    public void onPhotoSelected(String photoTitle, String photoUrl) {
+    public void onPhotoSelected(String photoTitle, String photoUrl, PhotoSimple photoSimple) {
         // The user selected a photo from the photo list
 
         // Save in persistence the photo details
-        photoPersistenceJob.savePhoto(photoUrl, photoTitle, PhotoType.HISTORIC);
+        photoPersistenceJob.savePhoto(photoUrl, photoTitle, PhotoType.HISTORIC,photoSimple);
 
         // Capture the photo detail fragment from the activity layout
         PhotoDetailsFragment photoDetailsFragment = (PhotoDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.frag_detail);

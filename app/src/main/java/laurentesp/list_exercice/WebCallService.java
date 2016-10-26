@@ -89,6 +89,7 @@ public class WebCallService extends Service {
                                                              String server = photoI.getServer();
                                                              String id = photoI.getId();
                                                              String secret = photoI.getSecret();
+
                                                              PhotoSimple newPhotoSimple = new PhotoSimple(title, farm, server, id, secret);
                                                              listPhotoSimple.add(newPhotoSimple);
                                                          }

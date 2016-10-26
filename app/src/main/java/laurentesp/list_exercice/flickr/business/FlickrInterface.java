@@ -11,6 +11,6 @@ import retrofit2.http.Query;
  */
 
 public interface FlickrInterface {
-    @GET("services/rest/?method=flickr.photos.search&safe_search=1&per_page=5&format=json&nojsoncallback=1")
+    @GET("services/rest/?method=flickr.photos.search&safe_search=1&per_page=5&format=json&nojsoncallback=1&has_geo=1")
     Call<FlickrPhotoResponse> getPhotos(@Query("tags") String query, @Query("api_key") String apiKey);
 }
